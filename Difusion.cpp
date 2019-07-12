@@ -104,4 +104,159 @@ void Difusion(double vc, int npuntos){
 
 	outfile3.close();
 
+	//Caso 2: condiciones abiertas.
+
+	ofstream outfile4;
+	outfile4.open("inicialc2.txt");
+
+	double P2presente[npuntos][npuntos];
+	double P2futura[npuntos][npuntos];
+
+	for(int k=0; k<npuntos;k++){
+		for(int j=0; j<npuntos;j++){
+			P2presente[k][j]=50.0;
+
+			if(j>=20 && j<= 40 && k>=40 && k<=60){
+				P2presente[k][j]=100.0;
+			}
+
+		}
+	}
+
+	for(int k=0; k<npuntos;k++)
+	{
+		for(int j=0; j<npuntos;j++)
+		{
+			outfile4 << P2presente[k][j] << " ";
+		}
+		outfile4 << "\n";
+	}
+	outfile4.close();
+
+	ofstream outfile5;
+	outfile5.open("futurac2.txt");
+
+	//Para t=100s
+	for(float i=0; i<100;i+=dt){
+		for(int k=1; k<npuntos-1;k++){
+			for(int j=1; j<npuntos-1;j++){
+				P2futura[k][j]= v1*(P2presente[k+1][j]+P2presente[k-1][j]-2.0*P2presente[k][j]) + v2*(P2presente[k][j+1]+P2presente[k][j-1]-2.0*P2presente[k][j]) + P2presente[k][j];
+				P2presente[k][j]=P2futura[k][j];
+			}
+		}
+
+	}
+
+	for(int k=0; k<npuntos;k++)
+	{
+		for(int j=0; j<npuntos;j++)
+		{
+			outfile5 << P2presente[k][j] << " ";
+		}
+		outfile5 << "\n";
+	}
+	outfile5.close();
+
+	ofstream outfile6;
+	outfile6.open("futura2c2.txt");
+
+	//Para t=2500s
+	for(float i=0; i<2500;i+=dt){
+		for(int k=1; k<npuntos-1;k++){
+			for(int j=1; j<npuntos-1;j++){
+				P2futura[k][j]= v1*(Ppresente[k+1][j]+P2presente[k-1][j]-2.0*P2presente[k][j]) + v2*(P2presente[k][j+1]+P2presente[k][j-1]-2.0*P2presente[k][j]) + P2presente[k][j];
+				P2presente[k][j]=P2futura[k][j];
+			}
+		}
+
+	}
+
+	for(int k=0; k<npuntos;k++)
+	{
+		for(int j=0; j<npuntos;j++)
+		{
+			outfile6 << P2presente[k][j] << " ";
+		}
+		outfile6 << "\n";
+	}
+	outfile6.close();
+
+	//Caso 3: condiciones periodicas.
+
+	ofstream outfile7;
+	outfile7.open("inicialc3.txt");
+
+	double P3presente[npuntos][npuntos];
+	double P3futura[npuntos][npuntos];
+
+	for(int k=0; k<npuntos;k++){
+		for(int j=0; j<npuntos;j++){
+			P3presente[k][j]=50.0;
+
+			if(j>=20 && j<= 40 && k>=40 && k<=60){
+				P3presente[k][j]=100.0;
+			}
+
+		}
+	}
+
+	for(int k=0; k<npuntos;k++)
+	{
+		for(int j=0; j<npuntos;j++)
+		{
+			outfile7 << P3presente[k][j] << " ";
+		}
+		outfile7 << "\n";
+	}
+	outfile7.close();
+
+	ofstream outfile8;
+	outfile8.open("futurac3.txt");
+
+	//Para t=100s
+	for(float i=0; i<100;i+=dt){
+		for(int k=1; k<npuntos-1;k++){
+			for(int j=1; j<npuntos-1;j++){
+				P3futura[k][j]= v1*(P3presente[k+1][j]+P3presente[k-1][j]-2.0*P3presente[k][j]) + v2*(P3presente[k][j+1]+P3presente[k][j-1]-2.0*P3presente[k][j]) + P3presente[k][j];
+				P3presente[k][j]=P3futura[k][j];
+			}
+		}
+
+	}
+
+	for(int k=0; k<npuntos;k++)
+	{
+		for(int j=0; j<npuntos;j++)
+		{
+			outfile8 << P3presente[k][j] << " ";
+		}
+		outfile8 << "\n";
+	}
+	outfile8.close();
+
+	ofstream outfile9;
+	outfile9.open("futura2c3.txt");
+
+	//Para t=2500s
+	for(float i=0; i<2500;i+=dt){
+		for(int k=1; k<npuntos-1;k++){
+			for(int j=1; j<npuntos-1;j++){
+				P3futura[k][j]= v1*(P3presente[k+1][j]+P3presente[k-1][j]-2.0*P3presente[k][j]) + v2*(P3presente[k][j+1]+P3presente[k][j-1]-2.0*P3presente[k][j]) + P3presente[k][j];
+				P3presente[k][j]=P3futura[k][j];
+			}
+		}
+
+	}
+
+	for(int k=0; k<npuntos;k++)
+	{
+		for(int j=0; j<npuntos;j++)
+		{
+			outfile9 << P3presente[k][j] << " ";
+		}
+		outfile9 << "\n";
+	}
+	outfile9.close();
+
+
 }
